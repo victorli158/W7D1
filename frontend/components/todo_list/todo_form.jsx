@@ -1,14 +1,29 @@
 import React from 'react';
+import { uniqueId } from '../../util/idGenerator';
 
 class TodoForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      title: "",
+      body: "",
+      done: false
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    
+    const todo = Object.assign({}, this.state, { id: uniqueId() });
+    this.props.receiveTodo(todo);
+    this.setState({
+      title: "",
+      body: ""
+    });
+  }
+
+  handleUpdate(prop) {
+    return e => this.setState({[prop]: e.target.value});
   }
 
   render() {
@@ -19,6 +34,7 @@ class TodoForm extends React.Component {
             className="input"
             ref="title"
             value={this.state.title}
+            onChange={this.handleUpdate('title')}
             required/>
         </label>
         <label>Body:
@@ -26,6 +42,7 @@ class TodoForm extends React.Component {
             className="input"
             ref="body"
             value={this.state.body}
+            onChange={this.handleUpdate('body')}
             required></textarea>
         </label>
         <button className="create-button">Submit</button>
