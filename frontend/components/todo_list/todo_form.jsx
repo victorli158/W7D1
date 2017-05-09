@@ -18,7 +18,8 @@ class TodoForm extends React.Component {
     this.props.receiveTodo(todo);
     this.setState({
       title: "",
-      body: ""
+      body: "",
+      done: false
     });
   }
 

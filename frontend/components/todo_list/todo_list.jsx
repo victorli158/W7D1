@@ -11,7 +11,7 @@ class TodoList extends React.Component {
     const { todos, receiveTodo } = this.props;
     // debugger
     const todoItems = todos.map(todo => (
-      <TodoListItem todo={todo} key={todo.id}/>
+      <TodoListItem todo={todo} key={todo.id} removeTodo={() => {this.props.removeTodo(todo);}}/>
     ));
     return(
       <div>
