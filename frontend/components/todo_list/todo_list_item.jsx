@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoDetailViewContainer from './todo_detail_container';
 
 // class TodoListItem extends React.Component{
 class TodoListItem extends React.Component {
@@ -9,12 +10,25 @@ class TodoListItem extends React.Component {
   }
 
   render() {
+    const { todo, updateTodo } = this.props;
+    const { title, done } = todo;
+    let detail;
+    if (this.state.detail) {
+      detail = <TodoDetailViewContainer todo={ todo } />;
+    }
     return (
-      <li>
-        {this.props.todo.title}
-      <button className="delete-button" onClick={ this.handleDelete }>Delete</button>
-      <button className="update-button" onClick={ this.handleDone }>Done</button>
-      </li>);
+      <li className="todo-list-item">
+        <div className="todo-header">
+          <h3><a onClick={ this.toggleDetail }>{ title }</a></h3>
+          <button
+            className={ done ? "done" : "undone" }
+            onClick={ this.toggleTodo }>
+            { done ? "Undo" : "Done" }
+          </button>
+        </div>
+        { detail }
+      </li>
+    );
   }
 
   handleDone(e) {
